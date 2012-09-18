@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>d8Studio</title>
+		<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+			  $("#tabs").tabs();
+        $("#toolbox").draggable({handle: 'p'});
+        $( ".datepicker" ).datepicker();
+        $(".tbItem").draggable({
+          appendTo: "body",
+          helper: "clone"
+        });
+        $("#wbItems").droppable({
+          accept: ".tbItem",
+          drop: function(event, ui){
+            console.log($(ui))
+            $( "<p class='draggable'>" + $.trim(ui.draggable.html().toLowerCase()) + "</p>" ).appendTo( this );
+            $('.draggable').draggable({containment: '#wbItems'});
+            $('.datepicker').datepicker();
+            
+            $('.draggable').on('click', function(){
+              console.log($(this));
+            });
+          }
+        });
+        
+        
+			});
+		</script>
+		<style type="text/css">
+			/*demo page css*/
+			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+			.demoHeaders { margin-top: 2em; }
+			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+			ul#icons {margin: 0; padding: 0;}
+			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+			.draggable
+      {
+          width: 150px;
+          height: 25px;
+          padding: 0% 1% 1% 0% ;
+          cursor: move;
+      }
+			.draggable:hover
+      {
+          width: 150px;
+          height: 25px;
+          border: dotted 1px black;
+          padding: 0% 1% 1% 0% ;
+          cursor: move;
+      }
+		</style>
+	</head>
+	<body>
+	  <h1> d8Studio </h1>
+	  <div id="toolbox" class="ui-widget-content ui-draggable" style="position: absolute;right: 50px;width: 300px;z-index: 10;">
+    	<p class="ui-widget-header" style="height: 30px;">Toolbox (Draggable)</p>
+    	<div class="ui-state-highlight ui-corner-all" style="margin: 10px; padding: 0 .7em;"> 
+				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+				<strong>Hey!</strong> Drag some items onto the workbench</p>
+			</div>
+    	<li class="draggable tbItem"> <input type="text" placeholder="textbox" /> </li>
+    	<li class="draggable tbItem"> <input type="password" placeholder="******" /> </li>
+    	<li class="draggable tbItem"> <input type="submit" /> </li>
+    	<li class="draggable tbItem"> <input type="radio" /> </li>
+    	<li class="draggable tbItem"> <input type="checkbox" /> </li>
+    	<li class="draggable tbItem"> <input type="datepicker" class="datepicker", placeholder="Date Picker" /> </li>
+    </div>
+    <div id="tabs" style="width: 70%;height: 800px;">
+      <ul>
+      	<li><a href="#workbench"> Workbench</a></li>
+      	<li><a href="#codeView"> Code View</a></li>
+      </ul>
+      <div id="properties" class="ui-widget-content" style="height: 770px;width: 250px;float: left;margin-right: 5px;">
+        <p class="ui-widget-header" style="height: 30px;top:25px;position: absolute;width: 250px;">Properties</p>
+      </div>
+      <div id="workbench" style="height: 740px;width: 640px;float: left;background: url('img/blueprint.jpeg');top:5px;position:relative;">
+        <div id="wbItems" class="ui-widget-content" style="width: 320px;height:480px;margin: 0px auto;top: 10%;position:relative;background: #eee;-moz-box-shadow: inset 0 0 5px 5px #888;
+        -webkit-box-shadow: inset 0 0 5px 5px#888;
+        box-shadow: inset 0 0 5px 5px #888;;">
+        </div>
+      </div>
+      
+      <div id="codeView" style="float: left;width: 640px;">
+        Select Object: 
+        <select>
+          <option> objSubmitButton</option>
+        </select>
+<textarea rows="60", cols="120">
+
+Application.init = function(){
+  Application.loadView('login');
+}
+
+// Click Event
+objSubmitButton.onClick = function(){
+  
+}</textarea>
+    	</div>
+    </div>
+	</body>
+</html>
+
+
